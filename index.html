@@ -10,9 +10,9 @@
     <input type="number" placeholder="Svars" id="svars" />
     <button id="btn">Aprēķināt</button>
     <p id="output"></p>
-    <ul id="ul">
-      History
-    </ul>
+    <ul id="ul"></ul>
+
+    <li><strong></strong></li>
 
     <script>
       const augumsInput = document.getElementById("augums");
@@ -73,12 +73,46 @@
         let svarsValue = parseFloat(svarsInput.value);
         let outputValue = parseFloat(outputInput.value);
 
+        if (
+          isNaN(augumsValue) ||
+          isNaN(svarsValue) ||
+          augumsValue <= 0 ||
+          svarsValue <= 0
+        ) {
+          return;
+        }
+
         let result = svarsValue / (augumsValue * augumsValue);
         const li = document.createElement("li");
-        li.textContent = result;
+        li.textContent = result.toFixed(2);
 
         ulInput.appendChild(li);
+
+        let history = localStorage.getItem("history");
+        if (!history) {
+          history = [];
+        } else {
+          history = history.split(",");
+        }
+
+        history.push(bmi);
+        localStorage.setItem("history", history.join(","));
+        displayHistory();
       }
+
+      function displayHistory() {
+        ulInput.innerHTML = "History: ";
+        let history = localStorage.getItem("history");
+        if (history) {
+          history = history.split(",");
+          history.forEach((bmi) => {
+            let li = document.createElement("li");
+            li.textContent = result;
+            ulInput.appendChild(li);
+          });
+        }
+      }
+      displayHistory();
     </script>
   </body>
 </html>
