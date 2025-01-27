@@ -10,12 +10,75 @@
     <input type="number" placeholder="Svars" id="svars" />
     <button id="btn">Aprēķināt</button>
     <p id="output"></p>
+    <ul id="ul">
+      History
+    </ul>
 
     <script>
       const augumsInput = document.getElementById("augums");
       const svarsInput = document.getElementById("svars");
       const btn = document.getElementById("btn");
       const outputInput = document.getElementById("output");
+      const ulInput = document.getElementById("ul");
+
+      btn.addEventListener("click", handleClick);
+
+      function handleClick() {
+        console.log("mmmmmmmm");
+        // let augumsValue = parseFloat(augumsInput.value);
+        // let svarsValue = parseFloat(svarsInput.value);
+        // let outputValue = parseFloat(outputInput.value);
+
+        // let result = svarsInput / (augumsInput * augumsInput);
+        calculate();
+        history();
+      }
+
+      function calculate() {
+        let augumsValue = parseFloat(augumsInput.value);
+        let svarsValue = parseFloat(svarsInput.value);
+        let outputValue = parseFloat(outputInput.value);
+
+        let result = svarsValue / (augumsValue * augumsValue);
+        console.log(result);
+
+        if (result < 18.5) {
+          outputInput.innerHTML =
+            "Jūsu ĶMI ir " +
+            result.toFixed(2) +
+            " ,kas atbilst kategorijai: Nepietiekama ķermeņa masa";
+        }
+        if (result >= 18.5 && result < 24.99) {
+          outputInput.innerHTML =
+            "Jūsu ĶMI ir " +
+            result.toFixed(2) +
+            " ,kas atbilst kategorijai: Normāla ķermeņa masa";
+        }
+        if (result >= 25 && result < 29.99) {
+          outputInput.innerHTML =
+            "Jūsu ĶMI ir " +
+            result.toFixed(2) +
+            " ,kas atbilst kategorijai: Lieka ķermeņa masa";
+        }
+        if (result > 30) {
+          outputInput.innerHTML =
+            "Jūsu ĶMI ir " +
+            result.toFixed(2) +
+            " ,kas atbilst kategorijai: Aptaukošanās";
+        }
+      }
+
+      function history() {
+        let augumsValue = parseFloat(augumsInput.value);
+        let svarsValue = parseFloat(svarsInput.value);
+        let outputValue = parseFloat(outputInput.value);
+
+        let result = svarsValue / (augumsValue * augumsValue);
+        const li = document.createElement("li");
+        li.textContent = result;
+
+        ulInput.appendChild(li);
+      }
     </script>
   </body>
 </html>
